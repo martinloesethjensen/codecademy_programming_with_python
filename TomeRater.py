@@ -11,7 +11,7 @@ class User(object):
 
     # Method to change the email on the selected user
     def change_email(self, address):
-
+        self.email = address
 
     def __repr__(self):
         pass
