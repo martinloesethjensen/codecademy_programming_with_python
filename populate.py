@@ -29,17 +29,15 @@ Tome_Rater.add_book_to_user(novel2, "marvin@mit.edu", 2)
 Tome_Rater.add_book_to_user(novel3, "marvin@mit.edu", 2)
 Tome_Rater.add_book_to_user(novel3, "david@computation.org", 4)
 
-
 #Uncomment these to test your functions:
-Tome_Rater.print_catalog()
-
-
+# Tome_Rater.print_catalog()
 
 # Tome_Rater.print_users()
+# print(Tome_Rater.most_read_book())
 
-# print("Most positive user:")
-# print(Tome_Rater.most_positive_user())
-# print("Highest rated book:")
-# print(Tome_Rater.highest_rated_book())
+print("Most positive user:")
+print(Tome_Rater.most_positive_user())
+print("Highest rated book:")
+print(Tome_Rater.highest_rated_book())
 # print("Most read book:")
 # print(Tome_Rater.get_most_read_book())

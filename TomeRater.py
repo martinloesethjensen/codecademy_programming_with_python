@@ -1,7 +1,7 @@
 from Book import *
 from Fiction import Fiction
 from NonFiction import NonFiction
-from User import User
+from User import *
 
 
 class TomeRater(object):
@@ -30,7 +30,7 @@ class TomeRater(object):
             book.add_rating(rating)
 
             # If the book exists in books dict, then increment +1 else add the book and set value to 1
-            self.books[book] = self.books.get(book, 1) + 1
+            self.books[book] = self.books.get(book, 0) + 1
 
         #print(self.books)
 
@@ -40,6 +40,32 @@ class TomeRater(object):
             for book in books:
                 self.add_book_to_user(book, email)
 
+    # Only iterate through the keys and not the value which have the ratings
     def print_catalog(self):
-        for book in self.books:
+        for book in self.books.keys():
             print(book)
+
+    # Print the User objects (values)
+    def print_users(self):
+        for user in self.users.values():
+            print(user)
+
+    # returns the key with maximum value
+    def most_read_book(self):
+        return max(self.books, key=self.books.get)
+
+    def highest_rated_book(self):
+        highest_rated = Book
+        temp_average = 0
+        for book in self.books:
+
+            if book.get_average_rating() > temp_average:
+                highest_rated = book
+                temp_average = book.get_average_rating()
+        return highest_rated
+
+    def most_positive_user(self):
+        # To get the highest rated number
+        highest_rated = max(rating.get_average_rating() for rating in self.users.values())
+
+        return [user for user in self.users.values() if user.get_average_rating() == highest_rated]

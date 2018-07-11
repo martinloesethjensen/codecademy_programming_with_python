@@ -37,11 +37,6 @@ class User(object):
 
     # Iterates through the dictionary, books, and calculates the average rating for all the books
     def get_average_rating(self):
-        average = 0.0 # a float value so I don't need to cast to a float when it should return
-
-        # What if the book has None as rating? Should it then also be counted?
-        for rating in self.books:
-            average += rating
-
-        return average / len(self.books) # check if float() is needed here.
+        # returns a float value
+        return sum([rating for rating in self.books.values() if rating is not None]) / len(self.books)
 

@@ -43,13 +43,8 @@ class Book(object):
 
     # Calculates the average for the ratings for the book
     def get_average_rating(self):
-        average = 0.0
-        # [rating for rating in self.ratings]
-
-        for rating in self.ratings:
-            average += rating
-
-        return average / len(self.ratings) # float(sum(avg) ...)
+        # returns a float value
+        return sum([rating for rating in self.ratings]) / len(self.ratings)
 
     # Returns a hash value for the book object
     def __hash__(self):

@@ -8,6 +8,7 @@ __pycache__/
 
 *.pdf
 *.xml
+*.idea
 
 
 # Distribution / packaging
