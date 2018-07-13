@@ -2,6 +2,7 @@ from Book import *
 from Fiction import Fiction
 from NonFiction import NonFiction
 from User import *
+import re
 
 
 class TomeRater(object):
@@ -32,13 +33,14 @@ class TomeRater(object):
             # If the book exists in books dict, then increment +1 else add the book and set value to 1
             self.books[book] = self.books.get(book, 0) + 1
 
-        #print(self.books)
-
     def add_user(self, name, email, books=None):
-        self.users[email] = User(name, email)
-        if books is not None:
-            for book in books:
-                self.add_book_to_user(book, email)
+        if email not in self.users:
+            self.users[email] = User(name, email)
+            if books is not None:
+                for book in books:
+                    self.add_book_to_user(book, email)
+        else:
+            print("This user already exists.")
 
     # Only iterate through the keys and not the value which have the ratings
     def print_catalog(self):
@@ -55,17 +57,34 @@ class TomeRater(object):
         return max(self.books, key=self.books.get)
 
     def highest_rated_book(self):
-        highest_rated = Book
-        temp_average = 0
-        for book in self.books:
+        # To get the highest rated number
+        highest_rated = max(rating.get_average_rating() for rating in self.books.keys())
 
-            if book.get_average_rating() > temp_average:
-                highest_rated = book
-                temp_average = book.get_average_rating()
-        return highest_rated
+        # Return the book if the book is the one with the highest rated number. Also return without '[]'
+        return str([book for book in self.books.keys() if book.get_average_rating() == highest_rated]).strip('[]')
 
     def most_positive_user(self):
         # To get the highest rated number
         highest_rated = max(rating.get_average_rating() for rating in self.users.values())
 
-        return [user for user in self.users.values() if user.get_average_rating() == highest_rated]
+        # Return the book if the book is the one with the highest rated number. Also return without '[]'
+        return str([user for user in self.users.values() if user.get_average_rating() == highest_rated]).strip('[]')
+
+    # Returning the books in an order
+    def get_n_read_books(self):
+        count = len(self.books)  # counter for the place
+        # Sort on the keys instead of values since dictionaries are orderless, we need a list representation.
+        # I have decided to print out formatted and not return a tuple, because this is immutable.
+        # 'key=lambda kv: kv[1]' sort by the values of each entry
+        for book, read in sorted(self.books.items(), key=lambda key_value: key_value[1]):  # Descending order
+            print("Place: {place}\n{book}Read: {read} times.\n".format(place=count, book=book, read=read))
+            count -= 1  # decrement counter to keep track of place for the book
+        return ""
+        # reverse=True to have the order ascending
+        #return str(sorted(self.books.items(), key=lambda kv: kv[1], reverse=True)).strip('[]')
+
+    # Returning the most read book
+    def get_most_read_book(self):
+        max_read_count = max(book for book in self.books.values())
+
+        return str([book for book, read_count in self.books.items() if read_count == max_read_count]).strip('[]')
