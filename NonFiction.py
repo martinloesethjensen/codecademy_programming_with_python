@@ -7,11 +7,9 @@ class NonFiction(Book):
         self.subject = subject
         self.level = level
 
-    # Returns subject
     def get_subject(self):
         return self.subject
 
-    # Returns level
     def get_level(self):
         return self.level
 
