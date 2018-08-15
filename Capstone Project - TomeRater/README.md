@@ -13,7 +13,7 @@ Such as:
 
 The instructions to the project can be found in the pdf: **_TomeRater Instructions.pdf_** 
 #
-###Extra info
+### Extra info
 I wanted to separate all of the existing classes; `User`, `Book`, `Fiction`, `NonFiction` and `TomeRater`.
 So it wouldn't be in a standalone file as it is now.
 
